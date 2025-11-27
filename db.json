@@ -1,10 +1,11 @@
 {
   "users": [
     {
-      "id": "61672072-f964-4885-90cd-c1e43c3bbbda",
-      "email": "duc@gmail.com",
-      "username": "Minh Duc Nguyen",
-      "password": "$2b$10$Aghqz.ooRmfYSl5gJyV4O.hn32OCvKTjft4SOYtHLh5mByOkpgAS."
+      "id": "0043149f-2e4c-4f30-a9a4-755aaab52413",
+      "fullname": "duc duc",
+      "email": "nguyenminhduc1982005@gmail.com",
+      "username": "23bi14099",
+      "password": "$2b$10$Sf7C70VI6qqfHKZF4WgsTePz5oNp9A7zR7cCesMnOJNk64qHV58bC"
     }
   ]
 }

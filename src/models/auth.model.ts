@@ -39,7 +39,7 @@ class AuthModel {
     return newUser
   }
 
-  updateUserPassword(username: string, newPassword: string) {
+  resetPassword(username: string, newPassword: string) {
     const db = this.readDB()
     db.users = db.users.map((u: User) => (u.username === username ? { ...u, password: newPassword } : u))
     this.writeDB(db)

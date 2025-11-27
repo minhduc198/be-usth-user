@@ -8,5 +8,7 @@ router.post('/login', authController.login)
 router.post('/register', authController.register)
 router.post('/forgot-password', authController.forgotPassword)
 router.post('/logout', authMiddleware, authController.logout)
+router.get('/profile', authMiddleware, authController.getProfile)
+router.post('/reset-password', authMiddleware, authController.resetPassword)
 
 export default router

@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken'
 
 const JWT_SECRET = 'SECRET_KEY'
 
-export const signToken = (payload: any) => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' })
+export const signToken = (payload: any, expiresIn: any = '5s') => {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn })
 }
 
 export const verifyToken = (token: string) => {
