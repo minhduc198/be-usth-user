@@ -16,5 +16,5 @@ app.use(express.json())
 app.use('/api', routes)
 
 app.listen(4000, '0.0.0.0', () => {
-  console.log('Server running at http://192.168.42.101:4000')
+  console.log('Server running at 4000')
 })

@@ -1,11 +1,22 @@
 {
   "users": [
     {
-      "id": "0043149f-2e4c-4f30-a9a4-755aaab52413",
-      "fullname": "duc duc",
-      "email": "nguyenminhduc1982005@gmail.com",
+      "id": "fea86a1d-fca7-4d61-bf59-ab300e89a65d",
+      "fullname": "Minh Duc",
+      "email": "daocongdinhk5@gmail.com",
       "username": "23bi14099",
-      "password": "$2b$10$Sf7C70VI6qqfHKZF4WgsTePz5oNp9A7zR7cCesMnOJNk64qHV58bC"
+      "password": "$2b$10$PnuIi2y4corXAA52U3ElgewR7ZgvlezVrSWKu8okqA23WDE6qD73S",
+      "license": "29S1-371.94",
+      "expire": 1768573387344
+    },
+    {
+      "id": "45739879-1588-42e2-a20e-055673ad0495",
+      "fullname": "huu duc",
+      "email": "ngocsb2410739@usth.edu.vn",
+      "username": "23bi14098",
+      "password": "$2b$10$uFDz5p3EgmGUYjJm2ZFuj.hHg3vc9KEpkY8H1VKAkXT444ZldG8Ja",
+      "license": "29P1.927-68",
+      "expire": 1768574393406
     }
   ]
 }

@@ -10,6 +10,8 @@ interface User {
   email: string
   username: string
   password: string
+  license: string
+  expire: number
 }
 
 class AuthModel {
@@ -43,6 +45,21 @@ class AuthModel {
     const db = this.readDB()
     db.users = db.users.map((u: User) => (u.username === username ? { ...u, password: newPassword } : u))
     this.writeDB(db)
+  }
+
+  updateUser(username: string, newData: Partial<User>) {
+    const db = this.readDB()
+    const index = db.users.findIndex((u: User) => u.username === username)
+
+    if (index === -1) return null
+
+    db.users[index] = {
+      ...db.users[index],
+      ...newData
+    }
+
+    this.writeDB(db)
+    return db.users[index]
   }
 }
 

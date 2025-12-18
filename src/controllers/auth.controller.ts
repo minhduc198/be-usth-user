@@ -1,5 +1,4 @@
 import bcrypt from 'bcryptjs'
-import crypto from 'crypto'
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
@@ -21,7 +20,7 @@ export class AuthController {
   }
 
   register = (req: Request, res: Response) => {
-    const { fullname, email, username, password } = req.body
+    const { fullname, email, username, password, license, expire } = req.body
 
     if (authModel.findUserByEmail(email)) {
       return res.status(400).json({ message: 'Email already exists' })
@@ -36,7 +35,9 @@ export class AuthController {
       fullname,
       email,
       username,
-      password: hashed
+      password: hashed,
+      license,
+      expire
     })
 
     return res.status(201).json({ message: 'User registered successfully' })
@@ -124,7 +125,56 @@ export class AuthController {
       return res.status(404).json({ message: 'User not found' })
     }
 
-    return res.json({ id: profile.id, fullname: profile.fullname, email: profile.email, username: profile.username })
+    return res.json({
+      id: profile.id,
+      fullname: profile.fullname,
+      email: profile.email,
+      username: profile.username,
+      license: profile.license,
+      expire: profile.expire
+    })
+  }
+
+  updateDetail = (req: Request, res: Response) => {
+    const userToken = req.user as jwt.JwtPayload
+    const username = userToken?.username
+
+    if (!username) {
+      return res.status(401).json({ message: 'Unauthorized' })
+    }
+
+    const user = authModel.findUserByUsername(username)
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    const { fullname, email, license, expire } = req.body
+
+    if (email && email !== user.email) {
+      const existedEmail = authModel.findUserByEmail(email)
+      if (existedEmail) {
+        return res.status(400).json({ message: 'Email already exists' })
+      }
+    }
+
+    const updatedUser = authModel.updateUser(username, {
+      fullname: fullname ?? user.fullname,
+      email: email ?? user.email,
+      license: license ?? user.license,
+      expire: expire ?? user.expire
+    })
+
+    return res.json({
+      message: 'Profile updated successfully',
+      user: {
+        id: updatedUser.id,
+        fullname: updatedUser.fullname,
+        email: updatedUser.email,
+        username: updatedUser.username,
+        license: updatedUser.license,
+        expire: updatedUser.expire
+      }
+    })
   }
 }
 
