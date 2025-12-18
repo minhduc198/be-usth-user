@@ -176,6 +176,36 @@ export class AuthController {
       }
     })
   }
+
+  // 
+  checkMonthlyTicket = (req: Request, res: Response) => {
+    const { license_plate } = req.params
+
+    if (!license_plate) {
+      return res.status(400).json({ message: 'License plate is required' })
+    }
+
+    const user = authModel.findUserByLicense(license_plate)
+
+    if (!user) {
+      return res.json({ is_valid: false, message: 'Not registered' })
+    }
+
+    const now = Date.now()
+    if (user.expire < now) {
+      return res.json({ 
+        is_valid: false, 
+        message: 'Ticket expired', 
+        owner: user.fullname 
+      })
+    }
+
+    return res.json({ 
+      is_valid: true, 
+      owner: user.fullname,
+      expire: user.expire 
+    })
+  }
 }
 
 export const authController = new AuthController()

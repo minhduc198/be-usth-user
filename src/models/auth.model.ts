@@ -33,6 +33,16 @@ class AuthModel {
     return db.users.find((u: User) => u.email === email)
   }
 
+  ////  
+  findUserByLicense(license: string) {
+    const db = this.readDB()
+    const cleanInput = license.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()
+
+    return db.users.find((u: User) => 
+      u.license.replace(/[^a-zA-Z0-9]/g, '').toUpperCase() === cleanInput
+    )
+  }
+
   createUser(data: Omit<User, 'id'>) {
     const db = this.readDB()
     const newUser = { id: uuidv4(), ...data }

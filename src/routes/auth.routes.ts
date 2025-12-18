@@ -11,5 +11,7 @@ router.post('/logout', authMiddleware, authController.logout)
 router.get('/profile', authMiddleware, authController.getProfile)
 router.post('/reset-password', authMiddleware, authController.resetPassword)
 router.put('/update-detail', authMiddleware, authController.updateDetail)
+// 
+router.get('/check-license/:license_plate', authController.checkMonthlyTicket)
 
 export default router
