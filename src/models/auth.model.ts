@@ -36,11 +36,38 @@ class AuthModel {
   ////  
   findUserByLicense(license: string) {
     const db = this.readDB()
+    
+    // 1. Log Input đầu vào
+    console.log('\n--- [DEBUG START] ---')
+    console.log('1. Raw Input:', license)
+    
     const cleanInput = license.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()
+    console.log('2. Clean Input:', cleanInput)
 
-    return db.users.find((u: User) => 
-      u.license.replace(/[^a-zA-Z0-9]/g, '').toUpperCase() === cleanInput
-    )
+    const foundUser = db.users.find((u: User) => {
+      if (!u.license) return false
+
+      // 3. Log từng dòng trong DB khi quét qua
+      const cleanDB = u.license.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()
+      
+      // In ra để so sánh (Chỉ in khi gần giống để đỡ spam log, hoặc in hết nếu cần)
+      // Ở đây tôi in hết để bạn dễ soi
+      console.log(`   > Comparing with DB User: ${u.username}`)
+      console.log(`     - DB Raw:   "${u.license}"`)
+      console.log(`     - DB Clean: "${cleanDB}"`)
+      console.log(`     - Match?:   ${cleanDB === cleanInput}`)
+
+      return cleanDB === cleanInput
+    })
+
+    if (foundUser) {
+        console.log(' FOUND USER:', foundUser.username)
+    } else {
+        console.log(' NO MATCH FOUND')
+    }
+    console.log('--- [DEBUG END] ---\n')
+
+    return foundUser
   }
 
   createUser(data: Omit<User, 'id'>) {
