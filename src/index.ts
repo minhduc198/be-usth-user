@@ -4,24 +4,17 @@ import cors from 'cors'
 
 const app = express()
 
-app.use(
-  cors({
-    origin: '*',
-    credentials: true
-  })
-)
-
+app.use(cors({ origin: '*', credentials: true }))
 app.use(express.json())
 
-app.use('/api', routes)
-
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
-  next()
+app.get('/', (req, res) => {
+  res.send('API is running 🚀')
 })
+
+app.use('/api', routes)
 
 const PORT = Number(process.env.PORT) || 4000
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running at ${PORT}`)
+  console.log(`Server running on port ${PORT}`)
 })
