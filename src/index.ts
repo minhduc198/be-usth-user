@@ -13,14 +13,15 @@ app.use(
 
 app.use(express.json())
 
-app.use('/api',routes)
+app.use('/api', routes)
 
 app.use((req, res, next) => {
-    
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
-    next()
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
+  next()
 })
 
-app.listen(4000, '0.0.0.0', () => {
-  console.log('Server running at 4000')
+const PORT = Number(process.env.PORT) || 4000
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running at ${PORT}`)
 })
