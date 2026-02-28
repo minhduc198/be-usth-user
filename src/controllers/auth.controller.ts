@@ -157,6 +157,13 @@ export class AuthController {
       }
     }
 
+    if (license && license !== user.license) {
+      const existedLicense = authModel.findUserByLicense(license)
+      if (existedLicense) {
+        return res.status(400).json({ message: 'License plate already exists' })
+      }
+    }
+
     const updatedUser = authModel.updateUser(username, {
       fullname: fullname ?? user.fullname,
       email: email ?? user.email,
@@ -177,7 +184,7 @@ export class AuthController {
     })
   }
 
-  // 
+  //
   checkMonthlyTicket = (req: Request, res: Response) => {
     const { license_plate } = req.params
 
@@ -193,17 +200,17 @@ export class AuthController {
 
     const now = Date.now()
     if (user.expire < now) {
-      return res.json({ 
-        is_valid: false, 
-        message: 'Ticket expired', 
-        owner: user.fullname 
+      return res.json({
+        is_valid: false,
+        message: 'Ticket expired',
+        owner: user.fullname
       })
     }
 
-    return res.json({ 
-      is_valid: true, 
+    return res.json({
+      is_valid: true,
       owner: user.fullname,
-      expire: user.expire 
+      expire: user.expire
     })
   }
 }
